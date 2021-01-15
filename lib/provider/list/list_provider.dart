@@ -23,4 +23,10 @@ class ListProvider with ChangeNotifier {
 
   /// should return the correct value while [ListView] needs it, even [_items] filtered by their periods
   int get itemsLength => items?.length ?? 0;
+
+  set setPeriod(TaskPeriod period) {
+    if (period == taskPeriod) return;
+    taskPeriod = period;
+    notifyListeners();
+  }
 }
