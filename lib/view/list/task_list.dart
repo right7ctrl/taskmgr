@@ -27,18 +27,20 @@ class TaskList extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(child: Consumer<ListProvider>(
-            builder: (context, provider, _) {
-              return ListView.separated(
-                padding: EdgeInsets.all(12),
-                itemBuilder: (context, index) {
-                  return ListItem(data: provider.items.elementAt(index));
-                },
-                separatorBuilder: (context, index) => SizedBox(height: 12),
-                itemCount: provider.itemsLength,
-              );
-            },
-          ))
+          Expanded(
+            child: Consumer<ListProvider>(
+              builder: (context, provider, _) {
+                return ListView.separated(
+                  padding: EdgeInsets.all(12),
+                  itemBuilder: (context, index) {
+                    return ListItem(data: provider.items.elementAt(index));
+                  },
+                  separatorBuilder: (context, index) => SizedBox(height: 12),
+                  itemCount: provider.itemsLength,
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
