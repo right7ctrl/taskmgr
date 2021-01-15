@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/core/constants/enums.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
 import 'package:task_manager/provider/list/list_provider.dart';
 import 'package:task_manager/view/add/add_task.dart';
@@ -12,7 +13,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final listItemProvider = context.watch<ListProvider>();
+    final listProvider = context.watch<ListProvider>();
     return Material(
       elevation: 8,
       color: Colors.white,
@@ -62,7 +63,7 @@ class ListItem extends StatelessWidget {
                     children: [
                       ///Delete todo
                       ListItemAction(
-                        onTap: () => listItemProvider.removeItem(data.id),
+                        onTap: () => listProvider.removeItem(data.id),
                         icon: Icons.delete,
                         marginRight: 8,
                       ),
@@ -77,9 +78,28 @@ class ListItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                if (data.status == TaskStatus.TODO) markAsDoneButton(listProvider),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget markAsDoneButton(ListProvider provider) {
+    return Material(
+      color: Colors.green,
+      borderRadius: BorderRadius.circular(4),
+      child: InkWell(
+        onTap: () {},
+        borderRadius: BorderRadius.circular(4),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            'Mark as done',
+            style: TextStyle(fontSize: 12, color: Colors.white),
+          ),
         ),
       ),
     );

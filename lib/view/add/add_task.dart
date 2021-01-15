@@ -21,21 +21,34 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  String screenTitle = 'Add To-Do';
-  String buttonText = 'Add';
+  TextEditingController _titleController, _descriptionController;
+
+  String screenTitle = 'Add To-Do', buttonText = 'Add';
 
   @override
   void initState() {
+    _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
+
     if (widget?.data != null) {
       screenTitle = 'Edit To-Do';
       buttonText = 'Save';
+
+      _titleController.text = widget?.data?.title ?? '';
+      _descriptionController.text = widget?.data?.description ?? '';
     }
     super.initState();
   }
 
   @override
+  void dispose() {
+    _titleController?.dispose();
+    _descriptionController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     final listProvider = context.watch<ListProvider>();
 
     return Container(
@@ -48,12 +61,12 @@ class _AddTaskState extends State<AddTask> {
           Text('$screenTitle', style: TextStyle(fontSize: 18)),
           SizedBox(height: 24),
           CustomTextFormField(
+            controller: _titleController,
             placeholder: 'Title',
-            initialValue: widget?.data?.title ?? '',
           ),
           SizedBox(height: 16),
           CustomTextFormField(
-            initialValue: widget?.data?.description ?? '',
+            controller: _descriptionController,
             placeholder: 'Description',
             minLines: 3,
             maxLines: 3,
@@ -61,7 +74,12 @@ class _AddTaskState extends State<AddTask> {
           SizedBox(height: 16),
           AppButton(
             title: '$buttonText',
-            onTap: () {},
+            onTap: () {
+              listProvider.addItem(
+                _titleController.text,
+                _descriptionController.text,
+              );
+            },
           ),
         ],
       ),
