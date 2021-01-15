@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/core/constants/enums.dart';
 import 'package:task_manager/provider/list/list_provider.dart';
+import 'package:task_manager/view/add/add_task.dart';
 import 'package:task_manager/widget/list/list_item.dart';
 
 class TaskList extends StatefulWidget {
@@ -33,7 +34,9 @@ class _TaskListState extends State<TaskList> with SingleTickerProviderStateMixin
         title: Text('List'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          AddTask.show(context);
+        },
         child: Icon(Icons.add),
       ),
       body: Column(

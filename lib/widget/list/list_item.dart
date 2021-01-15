@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
 import 'package:task_manager/provider/list/list_provider.dart';
+import 'package:task_manager/view/add/add_task.dart';
 import 'package:task_manager/widget/list/list_item_action.dart';
 import 'package:provider/provider.dart';
 
@@ -66,7 +67,9 @@ class ListItem extends StatelessWidget {
                         marginRight: 8,
                       ),
                       ListItemAction(
-                        onTap: () => {},
+                        onTap: () {
+                          AddTask.show(context, initialData: data);
+                        },
                         icon: Icons.edit,
                         marginRight: 8,
                         bgColor: Colors.blue,
