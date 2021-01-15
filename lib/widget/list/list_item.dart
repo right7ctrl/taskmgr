@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
+import 'package:task_manager/provider/list/list_provider.dart';
 import 'package:task_manager/widget/list/list_item_action.dart';
+import 'package:provider/provider.dart';
 
 class ListItem extends StatelessWidget {
   final ListItemModel data;
@@ -9,6 +11,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final listItemProvider = context.watch<ListProvider>();
     return Material(
       elevation: 8,
       color: Colors.white,
@@ -56,8 +59,18 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      ListItemAction(onTap: () {}, icon: Icons.delete, marginRight: 8),
-                      ListItemAction(onTap: () {}, icon: Icons.edit, marginRight: 8, bgColor: Colors.blue),
+                      ///Delete todo
+                      ListItemAction(
+                        onTap: () => listItemProvider.removeItem(data.id),
+                        icon: Icons.delete,
+                        marginRight: 8,
+                      ),
+                      ListItemAction(
+                        onTap: () => {},
+                        icon: Icons.edit,
+                        marginRight: 8,
+                        bgColor: Colors.blue,
+                      ),
                     ],
                   ),
                 ),
