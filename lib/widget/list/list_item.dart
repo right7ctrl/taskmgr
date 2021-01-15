@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
+  final ListItemModel data;
+
   @override
   Widget build(BuildContext context) {
     return Material(
