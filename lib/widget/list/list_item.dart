@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/model/list/list_item_model.dart';
 
 class ListItem extends StatelessWidget {
   final ListItemModel data;
+
+  const ListItem({Key key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
