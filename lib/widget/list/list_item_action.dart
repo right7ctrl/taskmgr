@@ -10,15 +10,17 @@ class ListItemAction extends StatelessWidget {
   /// foreground/icon color
   final Color fgColor;
 
-  const ListItemAction({Key key, this.icon = Icons.delete, @required this.onTap, this.bgColor = Colors.red, this.fgColor = Colors.white}) : super(key: key);
+  final double marginRight;
+
+  const ListItemAction({Key key, this.icon = Icons.delete, @required this.onTap, this.bgColor = Colors.red, this.fgColor = Colors.white, this.marginRight = 0.0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(6),
-        margin: EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.all(6),
+        margin: EdgeInsets.only(right: marginRight),
         decoration: BoxDecoration(shape: BoxShape.circle, color: bgColor),
         child: Icon(icon, color: fgColor),
       ),
