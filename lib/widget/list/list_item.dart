@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
+import 'package:task_manager/widget/list/list_item_action.dart';
 
 class ListItem extends StatelessWidget {
   final ListItemModel data;
@@ -25,7 +26,7 @@ class ListItem extends StatelessWidget {
               children: [
                 Expanded(
                     child: Text(
-                  'Item title Item title Item title Item title Item title Item title',
+                  '${data.title}',
                   style: TextStyle(fontSize: 16),
                 )),
                 SizedBox(width: 24),
@@ -36,7 +37,7 @@ class ListItem extends StatelessWidget {
                     color: Colors.orange,
                   ),
                   child: Text(
-                    'Monthly',
+                    '${data.stringPeriod}',
                     style: TextStyle(fontSize: 12),
                   ),
                 ),
@@ -55,23 +56,8 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        margin: EdgeInsets.only(right: 8),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                        child: Icon(Icons.delete),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        margin: EdgeInsets.only(right: 8),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                        child: Icon(Icons.delete),
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                        child: Icon(Icons.delete),
-                      ),
+                      ListItemAction(onTap: () {}, icon: Icons.delete, marginRight: 8),
+                      ListItemAction(onTap: () {}, icon: Icons.edit, marginRight: 8, bgColor: Colors.blue),
                     ],
                   ),
                 ),
