@@ -5,7 +5,7 @@ import 'package:task_manager/widget/list/list_item_action.dart';
 class ListItem extends StatelessWidget {
   final ListItemModel data;
 
-  const ListItem({Key key, this.data}) : super(key: key);
+  const ListItem({Key key, @required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class ListItem extends StatelessWidget {
             ),
             SizedBox(height: 12),
             Text(
-              'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
+              '${data.description}',
               style: TextStyle(
                 color: Colors.grey,
               ),
@@ -60,9 +60,6 @@ class ListItem extends StatelessWidget {
                       ListItemAction(onTap: () {}, icon: Icons.edit, marginRight: 8, bgColor: Colors.blue),
                     ],
                   ),
-                ),
-                Chip(
-                  label: Text('Complete'),
                 ),
               ],
             ),
