@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/provider/list/list_provider.dart';
 import 'package:task_manager/widget/list/list_item.dart';
 
 class TaskList extends StatelessWidget {
@@ -25,16 +27,18 @@ class TaskList extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.all(12),
-              itemBuilder: (context, index) {
-                return ListItem();
-              },
-              separatorBuilder: (context, index) => SizedBox(height: 12),
-              itemCount: 12,
-            ),
-          )
+          Expanded(child: Consumer<ListProvider>(
+            builder: (context, provider, _) {
+              return ListView.separated(
+                padding: EdgeInsets.all(12),
+                itemBuilder: (context, index) {
+                  return ListItem(data: provider.items.elementAt(index));
+                },
+                separatorBuilder: (context, index) => SizedBox(height: 12),
+                itemCount: provider.itemsLength,
+              );
+            },
+          ))
         ],
       ),
     );

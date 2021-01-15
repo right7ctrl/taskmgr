@@ -8,4 +8,5 @@ class ListProvider with ChangeNotifier {
   ];
 
   List<ListItemModel> get items => _items;
+  int get itemsLength => _items?.length ?? 0;
 }
