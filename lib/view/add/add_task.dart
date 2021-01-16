@@ -23,9 +23,10 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _titleController, _descriptionController;
-  List<String> _periods = ['DAILY', 'WEEKLY', 'MONTHLY'];
   ValueNotifier<int> _periodsListener = ValueNotifier(0);
+  List<String> _periods = ['DAILY', 'WEEKLY', 'MONTHLY'];
 
   String screenTitle = 'Add To-Do', buttonText = 'Add';
 
@@ -67,36 +68,44 @@ class _AddTaskState extends State<AddTask> {
           SizedBox(height: 12),
           _buildPeriods,
           SizedBox(height: 12),
-          CustomTextFormField(
-            controller: _titleController,
-            placeholder: 'Title',
-            validator: (String val) {
-              if (val.isEmpty) return 'Zorunlu alan';
-              return null;
-            },
-          ),
-          SizedBox(height: 16),
-          CustomTextFormField(
-            controller: _descriptionController,
-            placeholder: 'Description',
-            validator: (String val) {
-              if (val.isEmpty) return 'Zorunlu alan';
-              return null;
-            },
-            minLines: 3,
-            maxLines: 3,
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                CustomTextFormField(
+                  controller: _titleController,
+                  placeholder: 'Title',
+                  validator: (String val) {
+                    if (val.isEmpty) return 'Zorunlu alan';
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                CustomTextFormField(
+                  controller: _descriptionController,
+                  placeholder: 'Description',
+                  validator: (String val) {
+                    if (val.isEmpty) return 'Zorunlu alan';
+                    return null;
+                  },
+                  minLines: 3,
+                  maxLines: 3,
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 16),
           AppButton(
             title: '$buttonText',
             onTap: () {
+              if (!_formKey.currentState.validate()) return;
+
               if (widget?.data != null) {
                 widget.data
                   ..title = _titleController.text
                   ..description = _descriptionController.text
                   ..period = TaskPeriod.values[_periodsListener.value];
                 listProvider.editItem(widget.data);
-
                 return;
               }
 
