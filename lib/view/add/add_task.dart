@@ -17,7 +17,7 @@ class AddTask extends StatefulWidget {
   _AddTaskState createState() => _AddTaskState();
 
   static void show(BuildContext context, {ListItemModel initialData}) {
-    showModalBottomSheet(context: context, builder: (context) => AddTask(data: initialData), isScrollControlled: true);
+    showModalBottomSheet(context: context, builder: (context) => AddTask(data: initialData));
     return;
   }
 }
