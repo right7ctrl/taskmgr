@@ -5,6 +5,7 @@ import 'package:task_manager/widget/app_button.dart';
 import 'package:task_manager/widget/custom_text_formfield.dart';
 import 'package:provider/provider.dart';
 
+/// Add or edit task
 class AddTask extends StatefulWidget {
   /// On task edit, [data] should not be null
   final ListItemModel data;

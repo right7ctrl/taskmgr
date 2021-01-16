@@ -47,9 +47,15 @@ class ListProvider with ChangeNotifier {
         title: title,
         id: lastItemId == 0 ? 0 : lastItemId + 1,
         period: TaskPeriod.DAILY,
-        status: TaskStatus.DONE,
+        status: TaskStatus.TODO,
       ),
     );
+    notifyListeners();
+  }
+
+  void markAsDone(int id) {
+    var item = _items.where((element) => element.id == id).toList().first;
+    item.status = TaskStatus.DONE;
     notifyListeners();
   }
 

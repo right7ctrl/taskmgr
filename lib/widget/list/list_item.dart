@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/core/constants/enums.dart';
+import 'package:task_manager/core/utils/functions.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
 import 'package:task_manager/provider/list/list_provider.dart';
 import 'package:task_manager/view/add/add_task.dart';
@@ -39,7 +40,7 @@ class ListItem extends StatelessWidget {
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: Colors.orange,
+                    color: getColorByPeriod(data?.period),
                   ),
                   child: Text(
                     '${data.stringPeriod}',
@@ -61,12 +62,14 @@ class ListItem extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      ///Delete todo
+                      ///Delete to-do
                       ListItemAction(
                         onTap: () => listProvider.removeItem(data.id),
                         icon: Icons.delete,
                         marginRight: 8,
                       ),
+
+                      /// Add to-do
                       ListItemAction(
                         onTap: () {
                           AddTask.show(context, initialData: data);
@@ -92,7 +95,9 @@ class ListItem extends StatelessWidget {
       color: Colors.green,
       borderRadius: BorderRadius.circular(4),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          provider.markAsDone(data.id);
+        },
         borderRadius: BorderRadius.circular(4),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
