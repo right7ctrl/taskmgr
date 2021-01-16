@@ -48,7 +48,10 @@ class _TaskListState extends State<TaskList> with SingleTickerProviderStateMixin
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
               onTap: (int val) {
-                context.read<ListProvider>().setPeriod = TaskPeriod.values[val];
+                print(val);
+                TaskPeriod period;
+                if (val != 0) period = TaskPeriod.values[val - 1];
+                context.read<ListProvider>().setPeriod = period;
               },
               tabs: [
                 Tab(child: Text('All')),
