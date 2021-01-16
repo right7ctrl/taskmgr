@@ -70,11 +70,19 @@ class _AddTaskState extends State<AddTask> {
           CustomTextFormField(
             controller: _titleController,
             placeholder: 'Title',
+            validator: (String val) {
+              if (val.isEmpty) return 'Zorunlu alan';
+              return null;
+            },
           ),
           SizedBox(height: 16),
           CustomTextFormField(
             controller: _descriptionController,
             placeholder: 'Description',
+            validator: (String val) {
+              if (val.isEmpty) return 'Zorunlu alan';
+              return null;
+            },
             minLines: 3,
             maxLines: 3,
           ),
@@ -111,15 +119,19 @@ class _AddTaskState extends State<AddTask> {
       valueListenable: _periodsListener,
       builder: (context, val, _) {
         return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _periods
-                .map((e) => GestureDetector(
-                    onTap: () => _periodsListener.value = _periods.indexOf(e),
-                    child: Chip(
-                      backgroundColor: _periodsListener.value == _periods.indexOf(e) ? Colors.green : null,
-                      label: Text('$e'),
-                    )))
-                .toList());
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: _periods
+              .map(
+                (e) => GestureDetector(
+                  onTap: () => _periodsListener.value = _periods.indexOf(e),
+                  child: Chip(
+                    backgroundColor: _periodsListener.value == _periods.indexOf(e) ? Colors.green : null,
+                    label: Text('$e'),
+                  ),
+                ),
+              )
+              .toList(),
+        );
       },
     );
   }
