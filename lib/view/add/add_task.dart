@@ -17,7 +17,7 @@ class AddTask extends StatefulWidget {
   _AddTaskState createState() => _AddTaskState();
 
   static void show(BuildContext context, {ListItemModel initialData}) {
-    showModalBottomSheet(context: context, builder: (context) => AddTask(data: initialData));
+    showModalBottomSheet(context: context, builder: (context) => AddTask(data: initialData), isScrollControlled: true);
     return;
   }
 }
@@ -58,7 +58,6 @@ class _AddTaskState extends State<AddTask> {
     final listProvider = context.watch<ListProvider>();
 
     return Container(
-      height: 326,
       padding: EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
