@@ -40,16 +40,21 @@ class ListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addItem(String title, String description) {
-    _items.add(
-      ListItemModel(
-        description: description,
-        title: title,
-        id: lastItemId == 0 ? 0 : lastItemId + 1,
-        period: TaskPeriod.DAILY,
-        status: TaskStatus.TODO,
-      ),
-    );
+  void addItem(ListItemModel item) {
+    item
+      ..id = lastItemId == 0 ? 0 : lastItemId + 1
+      ..status = TaskStatus.TODO;
+    _items.add(item);
+    notifyListeners();
+  }
+
+  void editItem(ListItemModel item) {
+    int index = _items.indexOf(_items.where((element) => element.id == item.id).toList().first);
+
+    /// if no items found with the [item.id] then do nothing
+    if (index == -1) return;
+
+    _items[index] = item;
     notifyListeners();
   }
 

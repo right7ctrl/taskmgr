@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/core/constants/enums.dart';
 import 'package:task_manager/model/list/list_item_model.dart';
 import 'package:task_manager/provider/list/list_provider.dart';
 import 'package:task_manager/widget/app_button.dart';
@@ -23,6 +24,8 @@ class AddTask extends StatefulWidget {
 
 class _AddTaskState extends State<AddTask> {
   TextEditingController _titleController, _descriptionController;
+  List<String> _periods = ['DAILY', 'WEEKLY', 'MONTHLY'];
+  ValueNotifier<int> _periodsListener = ValueNotifier(0);
 
   String screenTitle = 'Add To-Do', buttonText = 'Add';
 
@@ -32,6 +35,7 @@ class _AddTaskState extends State<AddTask> {
     _descriptionController = TextEditingController();
 
     if (widget?.data != null) {
+      _periodsListener.value = widget.data.period.index;
       screenTitle = 'Edit To-Do';
       buttonText = 'Save';
 
@@ -53,14 +57,16 @@ class _AddTaskState extends State<AddTask> {
     final listProvider = context.watch<ListProvider>();
 
     return Container(
-      height: 280,
+      height: 326,
       padding: EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('$screenTitle', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 24),
+          SizedBox(height: 12),
+          _buildPeriods,
+          SizedBox(height: 12),
           CustomTextFormField(
             controller: _titleController,
             placeholder: 'Title',
@@ -76,14 +82,45 @@ class _AddTaskState extends State<AddTask> {
           AppButton(
             title: '$buttonText',
             onTap: () {
+              if (widget?.data != null) {
+                widget.data
+                  ..title = _titleController.text
+                  ..description = _descriptionController.text
+                  ..period = TaskPeriod.values[_periodsListener.value];
+                listProvider.editItem(widget.data);
+
+                return;
+              }
+
               listProvider.addItem(
-                _titleController.text,
-                _descriptionController.text,
+                ListItemModel(
+                  title: _titleController.text,
+                  description: _descriptionController.text,
+                  period: TaskPeriod.values[_periodsListener.value],
+                ),
               );
             },
           ),
         ],
       ),
+    );
+  }
+
+  Widget get _buildPeriods {
+    return ValueListenableBuilder<int>(
+      valueListenable: _periodsListener,
+      builder: (context, val, _) {
+        return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: _periods
+                .map((e) => GestureDetector(
+                    onTap: () => _periodsListener.value = _periods.indexOf(e),
+                    child: Chip(
+                      backgroundColor: _periodsListener.value == _periods.indexOf(e) ? Colors.green : null,
+                      label: Text('$e'),
+                    )))
+                .toList());
+      },
     );
   }
 }

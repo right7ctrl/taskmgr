@@ -13,6 +13,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ListProvider()),
       ],
       child: MaterialApp(
+        title: 'Taskmgr',
         home: TaskList(),
       ),
     );

@@ -31,7 +31,7 @@ class _TaskListState extends State<TaskList> with SingleTickerProviderStateMixin
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('List'),
+        title: Text('Task List'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
