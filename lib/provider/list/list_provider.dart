@@ -7,12 +7,9 @@ class ListProvider with ChangeNotifier {
   TaskPeriod taskPeriod;
 
   List<ListItemModel> _items = [
-    ListItemModel(id: 0, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.DAILY, status: TaskStatus.TODO),
-    ListItemModel(id: 1, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.WEEKLY, status: TaskStatus.DONE),
-    ListItemModel(id: 2, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.MONTHLY, status: TaskStatus.TODO),
-    ListItemModel(id: 3, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.WEEKLY, status: TaskStatus.DONE),
-    ListItemModel(id: 4, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.DAILY, status: TaskStatus.DONE),
-    ListItemModel(id: 5, title: 'Lorem ipsum dolor sit', description: 'Lorem ipsum description', period: TaskPeriod.DAILY, status: TaskStatus.DONE),
+    ListItemModel(id: 0, title: 'First task', description: 'Lorem ipsum dolor sit amet', period: TaskPeriod.DAILY, status: TaskStatus.DONE),
+    ListItemModel(id: 1, title: 'Lorem ipsum', description: 'Pellentesque cursus, ipsum ut accumsan', period: TaskPeriod.WEEKLY, status: TaskStatus.DONE),
+    ListItemModel(id: 2, title: 'Pellentesque nibh', description: 'Quisque lacus tellus, aliquam eget purus ut', period: TaskPeriod.MONTHLY, status: TaskStatus.TODO),
   ];
 
   List<ListItemModel> get items {
@@ -27,6 +24,8 @@ class ListProvider with ChangeNotifier {
 
   /// should return the correct value while [ListView] needs it, even [_items] filtered by their periods.
   int get itemsLength => items?.length ?? 0;
+
+  /// return the biggest id in the [_items] list
   int get lastItemId {
     if (itemsLength == 0) return itemsLength;
     return _items?.last?.id ?? 0;
